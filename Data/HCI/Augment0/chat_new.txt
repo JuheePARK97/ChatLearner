@@ -1,0 +1,37 @@
+Q: Hi , how are you doing ?
+A: I 'm fine . How about yourself ?
+Q: I 'm pretty good . Thanks for asking .
+A: No problem . So how have you been ?
+Q: I 've been great . What about you ?
+A: I 've been good . I 'm in school right now .
+Q: What school do you go to ?
+A: I go to PCC .
+Q: Do you like it there ?
+A: It 's okay . It 's a really big campus .
+Q: Good luck with school .
+A: Thank you very much .
+Q: How 's it going ?
+A: I 'm doing well . How about you ?
+Q: Never better , thanks .
+A: So how have you been lately ?
+Q: I 've actually been pretty good . You ?
+A: I 'm actually in school right now .
+Q: Which school do you attend ?
+A: I 'm attending PCC right now .
+Q: Are you enjoying it there ?
+A: It 's not bad . There are a lot of people there .
+Q: Good luck with that .
+A: Thanks .
+Q: How are you doing today ?
+A: I 'm doing great . What about you ?
+Q: I 'm absolutely lovely , thank you .
+A: Everything 's been good with you ?
+Q: I have n't been better . How about yourself ?
+A: I started school recently .
+Q: Where are you going to school ?
+A: I 'm going to PCC .
+Q: How do you like it so far ?
+A: I like it so far . My classes are pretty good right now .
+Q: I wish you luck .
+A: Thanks a lot .
+===
