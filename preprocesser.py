@@ -27,8 +27,7 @@ def corpus_pre_process(file_dir):
         full_path_name = os.path.join(file_dir, data_file)
         if os.path.isfile(full_path_name) and data_file.lower().endswith('.txt'):
             new_name = data_file.lower().replace('.txt', '_new.txt')
-            full_new_name = os.path.join(file_dir, new_name)
-
+            full_new_name ="./Data/HCI/Augment0/" + new_name
             conversations = []
             with open(full_path_name, 'r',encoding='utf-8-sig') as f:
                 samples = []

@@ -30,7 +30,7 @@ def bot_ui():
 
     with tf.Session() as sess:
         predictor = BotPredictor(sess, corpus_dir=corp_dir, knbase_dir=knbs_dir,
-                                 result_dir=res_dir, result_file='hci-114')
+                                 result_dir=res_dir, result_file='hci')
         # This command UI has a single chat session only
         session_id = predictor.session_data.add_session()
 
@@ -42,7 +42,7 @@ def bot_ui():
         question = sys.stdin.readline()
         while question:
             print(question.strip())
-            if question.strip() == 'exit':
+            if question.strip() == '그만':
                 print("Thank you for using ChatLearner. Goodbye.")
                 break
 
