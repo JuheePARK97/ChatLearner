@@ -45,7 +45,7 @@ def corpus_pre_process(file_dir):
                 if len(samples):  # Add the last one
                     conversations.append(samples)
 
-            with open(full_new_name, 'a') as f_out:
+            with open(full_new_name, 'w') as f_out:
                 i = 0
                 for conversation in conversations:
                     i += 1

@@ -41,8 +41,7 @@ def bot_ui():
         sys.stdout.flush()
         question = sys.stdin.readline()
         while question:
-            print(question.strip())
-            if question.strip() == '그만':
+            if question.strip() in ['그만','exit']:
                 print("Thank you for using ChatLearner. Goodbye.")
                 break
 

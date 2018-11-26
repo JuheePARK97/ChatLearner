@@ -122,7 +122,7 @@ def generate_vocab_file(corpus_dir):
 
                                             vocab_list.append(t)
 
-    with open(VOCAB_FILE, 'a',encoding='UTF8') as f_voc:
+    with open(VOCAB_FILE, 'w',encoding='UTF8') as f_voc:
         for v in vocab_list:
             f_voc.write("{}\n".format(v))
 

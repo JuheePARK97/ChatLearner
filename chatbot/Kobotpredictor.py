@@ -67,7 +67,6 @@ class BotPredictor(object):
         chat_session = self.session_data.get_session(session_id)
         chat_session.before_prediction()  # Reset before each prediction
 
-        print(question.strip())
         if question.strip() == '':
             answer = "Don't you want to say something to me?"
             chat_session.after_prediction(question, answer)
@@ -78,7 +77,6 @@ class BotPredictor(object):
         for pre_time in range(2):
             tokens = nltk.word_tokenize(new_sentence.lower())
             tmp_sentence = [' '.join(tokens[:]).strip()]
-            print(tmp_sentence)
             self.session.run(self.infer_batch.initializer,
                              feed_dict={self.src_placeholder: tmp_sentence})
 
