@@ -1,91 +1,37 @@
 # ChatLearner
 
-![](https://img.shields.io/badge/python-3.6.2-brightgreen.svg)  ![](https://img.shields.io/badge/tensorflow-1.4.0-yellowgreen.svg?sanitize=true)
 
-A chatbot implemented in TensorFlow based on the new sequence to sequence (NMT) model, with certain rules seamlessly integrated.
-
-**For those who are interested in chatbots in Chinese, please check [here](#chinese_chatbots).**
-
-The core of ChatLearner (Papaya) was built on the NMT model(https://github.com/tensorflow/nmt), which has been adapted here to fit the needs of a chatbot. Due to the changes made on tf.data API in TensorFlow 1.4, this ChatLearner version only supports TF version 1.4 and later.
-
-Before starting everything else, you may want to get a feeling of how ChatLearner behaves. Take a look at the sample conversation below or [here](https://github.com/bshao001/ChatLearner/blob/master/Data/Test/responses.txt), or if you prefer to try my trained model, download it [here](https://drive.google.com/file/d/1mVWFScBHFeA7oVxQzWb8QbKfTi3TToUr/view?usp=sharing). Unzip the downloaded .rar file, and copy the Result folder into the Data folder under your project root. A vocab.txt file is also included in case I update it without updating the trained model in the future.
-
-![](/Data/Test/chat.png)
-
-## Highlights and Specialties:
-Why do you want to spend time checking this repository? Here are some possible reasons:
-
-1. The Papaya Data Set for training the chatbot. You can easily find tons of training data online, but you cannot find any with such high quality. See the detailed description below about the data set.
-
-2. The concise code style and clear implementation of the new seq2seq model based on dynamic RNN (a.k.a. the new NMT model). It is customized for chatbots and much easier to understand compared with the official tutorial.
-
-3. The idea of using seamlessly integrated ChatSession to handle basic conversational context.
-
-4. Some rules are integrated to demo how to combine traditional rule-based chatbots with new deep learning models. No matter how powerful a deep learning model can be, it cannot even answer questions requiring simple arithmetic calculations, and many others. The approach demonstrated here can be easily adapted to retrieve news or other online information. With the rules implemented, it can then properly answer many interesting questions. For example:
-   
-   * "What time is it now?" or "What day is it today?" or "What's the date yesterday?"
-   * "Read me a story please." or "Tell me a joke." It can then present stories and jokes randomly and not being limited by the sequence length of the decoder.
-   * "How much is twelve thousand three hundred four plus two hundred fifty six?" or "What is the sum of five and six?" or "How much is twelve thousand three-hundred and four divided by two-hundred-fifty-six?" or "If x=55 and y=19, how much is y - x?" or "How much do you get if you subtract eight from one hundred?" or even "If x = 99 and y = 228 / x, how much is y?"
-   
-   If you are not interested in rules, you can easily remove those lines related to knowledgebase.py and functiondata.py.
-
-7. The repository also contains a chatbot implementation based on the legacy seq2seq model. In case you are interested in that, please check the Legacy_Chatbot branch at https://github.com/bshao001/ChatLearner/tree/Legacy_Chatbot.
-   
-## Papaya Conversational Data Set
-Papaya Data Set is the best (cleanest and well-organized) free English conversational data you can find on the web for training a chatbot. Here are some details:
-
-1. The data are composed of two sets: the first set was handcrafted, and we created the samples in order to maintain a consistent role of the chatbot, who can therefore be trained to be polite, patient, humorous, philosophical, and aware that he is a robot, but pretend to be a 9-year old boy named Papaya; the second set was cleaned from some online resources, including the scenario conversations designed for training robots, the Cornell movie dialogs, and cleaned Reddit data.
-
-2. The training data set is split into three categories: two subsets will be augmented/repeated during the training, with different levels or times, while the third will not. The augmented subsets are to train the model with rules to follow, and some knowledge and common senses, while the third subset is just to help to train the language model.
-
-3. The scenario conversations were extracted and reorganized from http://www.eslfast.com/robot/. If your model can support context, it would work much better by utilizing these conversations.
-
-4. The original Cornell data set can be found at [here](http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html). We cleaned it using a Python script (the script can also be found in the Corpus folder); we then cleaned it manually by quickly searching certain patterns. 
-
-5. For the Reddit data, a cleaned subset (about 110K pairs) is included in this repository. The vocab file and model parameters are created and adjusted based on all the included data files. In case you need a larger set, you can also find scripts to parse and clean the Reddit comments in the Corpus/RedditData folder. In order to use those scripts, you need to download a torrent of Reddit comments from a torrent link [here](https://www.reddit.com/r/datasets/comments/3bxlg7/i_have_every_publicly_available_reddit_comment/). 
-Normally a single month of comments is big enough (can generated 3M pairs of training samples roughly). You can tune the parameters in the scripts based on your needs. 
-
-6. The data files in this data set were already preprocessed with NLTK tokenizer so that they are ready to feed into the model using new tf.data API in TensorFlow.
-
-## Before You Proceed
-1. Please make sure you have the correct TensorFlow version. It works only with TensorFlow 1.4, not any earlier releases because the tf.data API used here was newly updated in TF 1.4.
-
-2. Please make sure you have environment variable PYTHONPATH setup. It needs to point to the project root directory, in which you have chatbot, Data, and webui folder. If you are running in an IDE, such as PyCharm, it will create that for you. But if you run any python scripts in a command line, you have to have that environment variable, otherwise, you get module import errors.
-
-3. Please make sure you are using the same vocab.txt file for both training and inference/prediction. Keep in mind that your model will never see any words as we do. It's all integers in, integers out, while the words and their orders in vocab.txt help to map between the words and integers.
-
-4. Spend a little bit time thinking of how big your model should be, what should be the maximum length of the encoder/decoder, the size of the vocabulary set, and how many pairs of the training data you want to use. Be advised that a model has a capacity limit: how much data it can learn or remember. When you have a fixed number of layers, number of units, type of RNN cell (such as GRU), and you decided the encoder/decoder length, it is mainly the vocabulary size that impacts your model's ability to learn, not the number of training samples. If you can manage not to let the vocabulary size to grow when you make use of more training data, it probably will work, but the reality is when you have more training samples, the vocabulary size also increases very quickly, and you may then notice your model cannot accommodate that size of data at all. Feel free to open an issue to discuss if you want.
-
-## Training
-Other than Python 3.6 (3.5 should work as well), Numpy, and TensorFlow 1.4. You also need NLTK (Natural Language Toolkit) version 3.2.4 (or 3.2.5).
-
-During the training, I really suggest you to try playing with a parameter (colocate_gradients_with_ops) in function tf.gradients. You can find a line like this in modelcreator.py:
-gradients = tf.gradients(self.train_loss, params). Set colocate_gradients_with_ops=True (adding it) and run the training for at least one epoch, note down the time, and then set
-it to False (or just remove it) and run the training for at least one epoch and see if the times required for one epoch are significantly different. It is shocking to me at least.
-
-Other than those, training is straightforward. Remember to create a folder named Result under the Data folder first. Then just run the following commands:
+## Preprocessing/Training/Test
+python 3.5이상 버전 기준으로 만들어진 코드입니다. 넘파이와 텐서플로우 1.4버전 이상이 필요하며 기초적인 nlp 처리를 위해 NLTK 버전 3.2.4(3.2.5)가 필요합니다. 본 코드는 학습파일 전처리 - 단어 사전 형성 - 학습 - 실행 4 단계로 이뤄지고 있습니다. 텍스트 파일 전처리 작업은 preprocesser.py 파일로 작동됩니다. preprocesser.py 파일을 통해 전처리를 하기 위해서는 Data/HCI/Origin 경로내에 학습하려는 원본 파일을 저장해 놓아야 합니다. 프로그램 실행 시 Data/HCI/Augment0/ 디렉토리에 xxx_new.txt로 만들어 집니다.
 
 ```bash
-cd chatbot
-python bottrainer.py
+python preprocesser.py
 ```
 
-Good GPUs are highly recommended for the training as it can be very time-consuming. If you have multiple GPUs, the memory from all GPUs will be utilized by TensorFlow, and you can adjust the batch_size parameter in hparams.json file accordingly to make full use of the memory. You will be able to see the training results under Data/Result/ folder. Make sure the following 2 files exist as all these will be required for testing and prediction (the .meta file is optional as the inference model will be created independently): 
-
-1. basic.data-00000-of-00001
-2. basic.index
-
-## Testing / Inference
-For testing and prediction, we provide a simple command interface and a web-based interface. Note that vocab.txt file (and files in KnowledgeBase, for this chatbot) is also required for inference. In order to quickly check how the trained model performs, use the following command interface:
+두번째 단계로 학습을 위한 단어 사전을 만들어야 합니다. 본 프로세스는 HCIvocabgenerator.py를 통해 실행 할 수 있으며 실행 결과 Data/HCI/ 디렉토리에 kovocab.txt 파일이 생성 됩니다.
 
 ```bash
-cd chatbot
-python botui.py
+python HCIvocabgenerator.py
+```
+위 두 전처리 단계가 완료되었다면 bottrainer.py를 실행 해 학습을 진행합니다. 학습을 위한 세부 파라미터 조정은 Data/HCI의 hparams.json을 수정하여 가능합니다. 본 json 파일에서 수정하길 권장하는 항목은 "batch_size", "num_epochs", "num_units" 입니다. GPU 사용이 권장되며 데이터 셋의 크기에 따라 충분한 가용용량이 필요합니다. 제공된 데이터로 학습할 경우 약 100mb의 추가 공간이 필요합니다.학습한 가중치가 저장된 .ckpt 파일과 텐서보드 파일은 Data/HCI_Result 폴더에 저장되어 있습니다.
+
+```bash
+python HCItrainer.py
 ```
 
-Wait until you get the command prompt "> ".
+학습한 결과 테스트는 HCIbotui.py 파일을 이용해 할 수 있으며 학습한 .ckpt 파일과 연동하기 위해 추가적인 변경이 필요합니다. 코드의 33번째 줄 result_file 변수의 기본값인 "hci"를 학습한 결과 ckpt 파일 이름인 "hci-xxx" 로 매칭되는 파일 이름을 수정하거나 학습된 최종 파일들의 이름을 "hci"하는 이름으로 변경해야 합니다. HCIbotui.py 파일 실행 후 커멘드 창에 "> " 메세지가 뜨기 전까지 대기해 주세요. 채팅은 사용자가 "그만" 혹은 "exit"라고 입력할 때까지 진행됩니다. 아래 사진은 본 챗봇 프로그램을 실행한 예시입니다.
 
-A demo test result is provided as well. Please check it to see how this chatbot behaves now: https://github.com/bshao001/ChatLearner/blob/master/Data/Test/responses.txt
+
+```bash
+python HCIbotui.py
+```
+
+![img/sample.PNG]
+1. hci.data-00000-of-00001
+2. hci.index
+3. hci.meta
+
+
 
 ## References and Credits:
 1. The new NMT model: https://github.com/tensorflow/nmt
