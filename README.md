@@ -10,7 +10,9 @@ nltk.download("punkt")
 ```
 
 ![image](img/nltk2.PNG)
+nltk punkt 미설치시 나오는 에러
 ![image](img/nltk3.PNG)
+nltk punkt 설치 방법
 
 ## Preprocessing/Training/Test
 텍스트 파일 전처리 작업은 preprocesser.py 파일로 작동됩니다. preprocesser.py 파일을 통해 전처리를 하기 위해서는 Data/HCI/Origin 경로내에 학습하려는 원본 파일을 저장해 놓아야 합니다. 프로그램 실행 시 Data/HCI/Augment0/ 디렉토리에 xxx_new.txt로 만들어 집니다.
