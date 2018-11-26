@@ -1,5 +1,6 @@
 # ChatLearner
 
+original source :  https://github.com/bshao001/ChatLearner
 ## Foundation work
 python 3.5이상 버전 기준으로 만들어진 코드입니다. 넘파이와 텐서플로우 1.4버전 이상이 필요하며 기초적인 nlp 처리를 위해 NLTK 버전 3.2.4(3.2.5)가 필요합니다. 본 코드는 학습파일 전처리 - 단어 사전 형성 - 학습 - 실행 4 단계로 이뤄지고 있습니다. 
 본 코드를 실행하기 위해서는 NLTK의 "punkt"가 설치돼야 합니다.
