@@ -26,7 +26,7 @@ python HCItrainer.py
 python HCIbotui.py
 ```
 
-![img/sample.PNG]
+![image](img/sample.PNG)
 1. hci.data-00000-of-00001
 2. hci.index
 3. hci.meta
