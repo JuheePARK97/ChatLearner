@@ -29,7 +29,8 @@ python preprocesser.py
 ```bash
 python HCIvocabgenerator.py
 ```
-위 두 전처리 단계가 완료되었다면 bottrainer.py를 실행 해 학습을 진행합니다. 학습을 위한 세부 파라미터 조정은 Data/HCI의 hparams.json을 수정하여 가능합니다. 본 json 파일에서 수정하길 권장하는 항목은 "batch_size", "num_epochs" 입니다. "batch_size"는 학습 시의 배치 사이즈를 결정하며, "num_epochs"는 학습의 횟수를 결정합니다. 제공되는 본 소스는 초기 epoch를 120으로 설정하였습니다. 학습 시 GPU 사용이 권장되며 데이터 셋의 크기에 따라 충분한 가용용량이 필요합니다. 제공된 데이터로 학습할 경우 약 100mb의 추가 공간이 필요합니다.학습한 가중치가 저장된 .ckpt 파일과 텐서보드 파일은 Data/HCI_Result 폴더에 저장됩니다.
+
+위 두 전처리 단계가 완료되었다면 HCItrainer.py 를 실행 해 학습을 진행합니다. 학습을 위한 세부 파라미터 조정은 Data/HCI의 hparams.json을 수정하여 가능합니다. 본 json 파일에서 수정하길 권장하는 항목은 "batch_size", "num_epochs" 입니다. "batch_size"는 학습 시의 배치 사이즈를 결정하며, "num_epochs"는 학습의 횟수를 결정합니다. 제공되는 본 소스는 초기 epoch를 120으로 설정하였습니다. 학습 시 GPU 사용이 권장되며 데이터 셋의 크기에 따라 충분한 가용용량이 필요합니다. 제공된 데이터로 학습할 경우 약 100mb의 추가 공간이 필요합니다.학습한 가중치가 저장된 .ckpt 파일과 텐서보드 파일은 Data/HCI_Result 폴더에 저장됩니다.
 
 ```bash
 python HCItrainer.py
