@@ -11,7 +11,7 @@ nltk.download("punkt")
 ```
 
 ![image](img/nltk2.PNG)
-nltk punkt 미설치시 나오는 에러
+   nltk punkt 미설치시 나오는 에러
 
 ![image](img/nltk3.PNG)
 nltk punkt 설치 방법
